@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>Folio</title>
+  <meta name="description" content="A quiet Markdown writing app backed by OneDrive.">
+  <meta name="theme-color" content="#f7f5f0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1b19" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Folio">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <section id="signin" hidden>
+    <div class="signin-card">
+      <h1 class="app-name">Folio</h1>
+      <p>Your writing lives in OneDrive. Sign in with your work Microsoft account to open it.</p>
+      <button id="btn-signin" class="primary">Sign in with Microsoft</button>
+      <p id="signin-msg" class="muted"></p>
+    </div>
+  </section>
+
+  <div id="app" hidden>
+    <aside id="sidebar" aria-label="Library">
+      <header class="side-head">
+        <span class="app-name">Folio</span>
+        <span class="spacer"></span>
+        <button id="btn-newgroup" title="New group" aria-label="New group">⊞</button>
+        <button id="btn-new" title="New sheet" aria-label="New sheet">＋</button>
+        <button id="btn-closelib" title="Back to sheet" aria-label="Back to sheet">›</button>
+      </header>
+      <input id="filter" type="search" placeholder="Filter sheets" aria-label="Filter sheets" autocomplete="off">
+      <nav id="tree" role="tree"></nav>
+      <footer class="side-foot">
+        <span id="who" class="muted"></span>
+        <button id="btn-signout" class="link">Sign out</button>
+      </footer>
+    </aside>
+
+    <main id="main">
+      <header id="topbar">
+        <button id="btn-lib" title="Library (Ctrl+\)" aria-label="Show or hide library">☰</button>
+        <h2 id="doc-title"></h2>
+        <span id="status" aria-live="polite"></span>
+        <button id="btn-settings" title="View settings" aria-label="View settings" popovertarget="settings">Aa</button>
+      </header>
+      <div id="authbar" hidden>
+        Sign-in expired. Your text is safe on this device.
+        <button id="btn-reauth" class="primary small">Sign in again</button>
+      </div>
+      <div id="editor-wrap"><div id="editor"></div>
+        <div id="empty" class="muted">Pick a sheet from the library, or press ＋ to start one.</div>
+      </div>
+      <footer id="counts"></footer>
+    </main>
+  </div>
+
+  <div id="settings" popover>
+    <div class="set-row"><span>Typewriter</span><button data-pref="typewriter" class="toggle"></button></div>
+    <div class="set-row"><span>Focus paragraph</span><button data-pref="focus" class="toggle"></button></div>
+    <div class="set-row"><span>Text size</span><span><button id="size-down">A−</button><button id="size-up">A+</button></span></div>
+    <div class="set-row"><span>Font</span><span class="seg">
+      <button data-pref="font:serif">Serif</button><button data-pref="font:sans">Sans</button><button data-pref="font:mono">Mono</button></span></div>
+    <div class="set-row"><span>Line width</span><span class="seg">
+      <button data-pref="width:narrow">Narrow</button><button data-pref="width:medium">Medium</button><button data-pref="width:wide">Wide</button></span></div>
+    <div class="set-row"><span>Theme</span><span class="seg">
+      <button data-pref="theme:auto">Auto</button><button data-pref="theme:light">Light</button><button data-pref="theme:dark">Dark</button></span></div>
+  </div>
+
+  <div id="menu" popover></div>
+
+  <dialog id="conflict">
+    <form method="dialog">
+      <h3>This sheet changed on another device</h3>
+      <p class="muted">The other version was saved <span id="cf-when"></span>. Nothing has been overwritten. Choose what to keep.</p>
+      <div class="cf-cols">
+        <div><h4>This device</h4><pre id="cf-mine"></pre></div>
+        <div><h4>Other device</h4><pre id="cf-theirs"></pre></div>
+      </div>
+      <div class="cf-actions">
+        <button value="both" class="primary">Keep both (mine becomes a copy)</button>
+        <button value="mine">Keep this device's</button>
+        <button value="theirs">Use the other device's</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status" hidden></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
