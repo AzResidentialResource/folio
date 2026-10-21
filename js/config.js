@@ -3,8 +3,8 @@ export const CONFIG = {
   appName: "Folio",
 
   // From the Azure app registration "Overview" page.
-  clientId: "PASTE-APPLICATION-CLIENT-ID-HERE",
-  tenantId: "PASTE-DIRECTORY-TENANT-ID-HERE",
+  clientId: "a95b4fc5-6165-46dc-8816-f2377d7d62c5",
+  tenantId: "0183c366-8a4c-43f6-b001-31bf8c8f22b1",
 
   scopes: ["User.Read", "Files.ReadWrite"],
 
